@@ -72,7 +72,7 @@ void constructtetrisdefault(int i, int j, int visina, int sirina, string polje[2
             }
             else
             {
-                polje[i][j] = "E";
+                polje[i][j] = " ";
 
             }
 
@@ -112,7 +112,7 @@ void constructtetris(int i, int j, int visina, int sirina, string polje[26][16],
             }
             else
             {
-                polje[i][j] = "E";
+                polje[i][j] = " ";
 
             }
 
@@ -252,7 +252,7 @@ bool checkifrotationstick(bojapoz aquapoz, bool horizontalno, string polje[26][1
 
 bool checkifstick(bool horizontalno, bojapoz aquapoz, string polje[26][16]) //checkifstick(horizontalno, aquapoz, polje)
 {
-    string x = "E";
+    string x = " ";
     if (horizontalno == true)
     {
         if (polje[aquapoz.a1 + 1][aquapoz.a] != x || polje[aquapoz.b1 + 1][aquapoz.b] != x || polje[aquapoz.c1 + 1][aquapoz.c] != x || polje[aquapoz.d1 + 1][aquapoz.d] != x)
@@ -275,7 +275,7 @@ bool checkifstick(bool horizontalno, bojapoz aquapoz, string polje[26][16]) //ch
 
 bool checkifleft(bojapoz aquapoz, string polje[26][16]) //checkifleft(aquapoz, polje)
 {
-    string x = "E";
+    string x = " ";
     bool leftestA1 = false;
     bool leftestB1 = false;
     bool leftestC1 = false;
@@ -377,7 +377,7 @@ bool checkifleft(bojapoz aquapoz, string polje[26][16]) //checkifleft(aquapoz, p
 
 bool checkifright(bojapoz aquapoz, string polje[26][16]) //checkifright(aquapoz, polje)
 {
-    string x = "E";
+    string x = " ";
     bool rightestA1 = false;
     bool rightestB1 = false;
     bool rightestC1 = false;
