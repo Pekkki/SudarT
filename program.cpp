@@ -1,4 +1,4 @@
-﻿#ifdef __unix__
+﻿#ifdef __unix__         //https://stackoverflow.com/questions/8764295/undefined-reference-to-sleep-but-i-did-include-unistd-h
 # include <unistd.h>
 #elif defined _WIN32
 # include <windows.h>
@@ -45,7 +45,7 @@ bool endgame(string polje[26][16]) //endgame(poljekopija)
 }
 
 
-//cisti ekran bez treperenja (kopirano s neta)
+//cisti ekran bez treperenja (kopirano s neta "https://www.sololearn.com/Discuss/1714796/how-to-update-console-without-flicker-in-c")
 
 void ClearScreen()
 {
@@ -180,26 +180,29 @@ void cistired(string poljekopija[26][16], long long int score) //cistired(poljek
     string x = "\xDB";
     int i, j;
     int k, l;
-    for (i = 24; i > 1; i--)
+    for (int n = 0; n < 25; n++)
     {
-        for (j = 1; j < 15; j++)
+        for (i = 24; i > 1; i--)
         {
-            if (poljekopija[i][j] == x)
+            for (j = 1; j < 15; j++)
             {
-                if (j == 14)
+                if (poljekopija[i][j] == x)
                 {
-                    k = i;
-                    for (k; k > 1; k--)
+                    if (j == 14)
                     {
-                        for (l = 1; l < 15; l++)
+                        k = i;
+                        for (k; k > 1; k--)
                         {
-                            poljekopija[k][l] = poljekopija[k - 1][l];
+                            for (l = 1; l < 15; l++)
+                            {
+                                poljekopija[k][l] = poljekopija[k - 1][l];
+                            }
                         }
                     }
                 }
+                else
+                    break;
             }
-            else
-                break;
         }
     }
 }
@@ -223,7 +226,7 @@ bool checkifrotationstick(bojapoz aquapoz, bool horizontalno, string polje[26][1
     {
         if (aquapoz.a1 != 1 && aquapoz.b1 != 1 && aquapoz.c1 != 1 && aquapoz.d1 != 1 && aquapoz.a1 != 23 && aquapoz.b1 != 23 && aquapoz.c1 != 23 && aquapoz.d1 != 23 && aquapoz.a1 != 24 && aquapoz.b1 != 24 && aquapoz.c1 != 24 && aquapoz.d1 != 24)
         {
-            if (polje[aquapoz.a1 - 2][aquapoz.a + 2] == "\xDB" || polje[aquapoz.b1 - 1][aquapoz.b + 1] == "\xDB" || polje[aquapoz.d1 + 1][aquapoz.d - 1] == "\xDB")
+            if (polje[aquapoz.a1 - 2][aquapoz.a + 2] == "\xDB" || polje[aquapoz.b1 - 1][aquapoz.b + 1] == "\xDB" || polje[aquapoz.d1 + 1][aquapoz.d - 1] == "\xDB" || polje[aquapoz.a1 + 2][aquapoz.a] == "\xDB" || polje[aquapoz.b1 + 2][aquapoz.b] == "\xDB" || polje[aquapoz.d1 + 2][aquapoz.d] == "\xDB")
             {
                 return false;
             }
@@ -248,6 +251,7 @@ bool checkifrotationstick(bojapoz aquapoz, bool horizontalno, string polje[26][1
             return true;
     }
 }
+
 
 
 bool checkifstick(bool horizontalno, bojapoz aquapoz, string polje[26][16]) //checkifstick(horizontalno, aquapoz, polje)
@@ -535,7 +539,7 @@ int main()
         }
         filetetris.close();
         //glavni menu
-        while (menu==true)
+        while (menu == true)
         {
             constructtetrisdefault(i, j, visina, sirina, polje);
             constructtetriscopydefault(i, j, visina, sirina, poljekopija);
@@ -702,13 +706,13 @@ int main()
         }
         // ---------------
         if (stick == true)
-        {           
+        {
             while (1)
             {
                 if (checkifstick(horizontalno, aquapoz, polje) == true)
                 {
                     constructtetris(i, j, visina, sirina, polje, poljekopija);
-                    
+
                     //rotacija
                     if (GetAsyncKeyState(VK_UP) || GetAsyncKeyState('W') || GetAsyncKeyState(VK_DOWN) || GetAsyncKeyState('S'))
                     {
@@ -716,7 +720,7 @@ int main()
                         {
                             if (horizontalno == true)
                             {
-                                if (aquapoz.a1 == 1 || aquapoz.b1 == 1 || aquapoz.c1 == 1 || aquapoz.d1 == 1) 
+                                if (aquapoz.a1 == 1 || aquapoz.b1 == 1 || aquapoz.c1 == 1 || aquapoz.d1 == 1)
                                 {
                                     aquapoz.a1++;
                                     aquapoz.b1++;
@@ -845,7 +849,7 @@ int main()
                     {
                         for (j = 0; j < 16; j++)
                         {
-                            filetetris.write((char*)&poljekopija[i][j], visina*sirina*sizeof(char));
+                            filetetris.write((char*)&poljekopija[i][j], visina * sirina * sizeof(char));
                         }
                     }
                     filetetris.close();
