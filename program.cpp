@@ -539,6 +539,8 @@ int main()
         }
         filetetris.close();
         //glavni menu
+        FlushConsoleInputBuffer(GetStdHandle(STD_INPUT_HANDLE));
+        system("cls");
         while (menu == true)
         {
             constructtetrisdefault(i, j, visina, sirina, polje);
@@ -656,7 +658,6 @@ int main()
             }
             system("cls");
         }//kraj menu
-        system("cls");
         //generate shape
         horizontalno = true;
         bool stick = false;
